@@ -1,0 +1,14 @@
+{
+  "name": "proyecto_final_tintoreria_gama",
+  "version": "1.0.0",
+  "description": "Web site for 'Tintoreria Gama'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Promethean Software Solutions",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
