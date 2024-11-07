@@ -14,8 +14,8 @@ function Login() {
                             <input type="text" name="correo" />
                             <label>Contraseña</label>
                             <input type="password" name="contraseña" />
-                            <button type="submit" className="w-40 bg-white">Iniciar sesión</button>
-                            <Link href="">¿No tienes una cuenta? Regístrate</Link>
+                            <button class="button" type="submit" className="w-40 bg-white">Iniciar sesión</button>
+                            <Link href="/SignIn">¿No tienes una cuenta? Regístrate</Link>
                         </form>
                     </div>
                 </div>
