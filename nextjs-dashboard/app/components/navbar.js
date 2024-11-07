@@ -9,7 +9,7 @@ function Navbar() {
             
                 <Link  href="/" className='hover:text-aquaLine'>Inicio</Link>
                 <Link href="/servicios" className='hover:text-aquaLine' >Servicios</Link>
-                <Link href="" className='hover:text-aquaLine'>Cuenta</Link>
+                <Link href="/LogIn" className='hover:text-aquaLine'>Cuenta</Link>
                 <h1>  </h1>
 
 
