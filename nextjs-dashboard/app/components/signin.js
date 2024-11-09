@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import AppnameLi from "../components/appnameLi.js";
 
