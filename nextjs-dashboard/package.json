@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
+    "mariadb": "^3.4.0",
     "mongodb": "6.10",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
