@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import AppnameLi from "../components/appnameLi.js";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 function Signin() {
   const [nombre, setNombre] = useState('');
@@ -11,6 +12,7 @@ function Signin() {
   const [telefono, setTelefono] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +33,8 @@ function Signin() {
       if (!response.ok) {
         setError(data.error);
       } else {
-        setSuccess('Usuario registrado exitosamente');
+        alert('Usuario registrado exitosamente');
+        router.push('/LogIn');
       }
     } catch (error) {
       setError('Error al registrar usuario');
@@ -76,7 +79,7 @@ function Signin() {
             {error && <p className="text-red-500">{error}</p>}
             {success && <p className="text-green-500">{success}</p>}
             <button type="submit" className="w-40 bg-white">Registrar</button>
-            <Link href="/LogIn">¿Ya tienes una cuenta? Inicia sesión</Link>
+            <Link href="/Login">¿Ya tienes una cuenta? Inicia sesión</Link>
           </form>
         </div>
       </div>

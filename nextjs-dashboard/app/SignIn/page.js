@@ -1,8 +1,5 @@
-import Signin from "../components/signin.js";
+import Signin from '../components/signin';
 
-export default function Page()
-{
-    return(
-        <Signin/>
-    );
+export default function SigninPage() {
+  return <Signin />;
 }
