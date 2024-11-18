@@ -29,21 +29,28 @@ function Login() {
       if (!response.ok) {
         setError(data.error);
       } else {
+        console.log('Token recibido:', data.token);
         alert('Inicio de sesión exitoso');
+        
+        // Guardar token en localStorage
+        localStorage.setItem('token', data.token);
+
+        // Redirigir a perfil
         router.push('/Profile');
       }
     } catch (error) {
-      setError('Contraseña incorrecta');
+      console.error('Error al iniciar sesión:', error);
+      setError('Error al iniciar sesión. Por favor, intenta de nuevo.');
     }
   };
 
   return (
     <div>
       <AppnameLi />
-      <div className='bg-blue-50 flex items-center justify-center m-0'>
-        <div className='text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl'>
-          <h1 className='pb-10 font-bungee text-3xl text-backgroundBlue'>Inicio de sesión</h1>
-          <form className='flex flex-col space-y-4 items-center' onSubmit={handleSubmit}>
+      <div className="bg-blue-50 flex items-center justify-center m-0">
+        <div className="text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl">
+          <h1 className="pb-10 font-bungee text-3xl text-backgroundBlue">Inicio de sesión</h1>
+          <form className="flex flex-col space-y-4 items-center" onSubmit={handleSubmit}>
             <label>Correo</label>
             <input
               type="text"

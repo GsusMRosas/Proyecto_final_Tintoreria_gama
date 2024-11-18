@@ -1,10 +1,17 @@
-// app/api/login/route.js
 import { createConnection } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+const SECRET_KEY = process.env.JWT_PRIVATE_KEY;
 
 export async function POST(req) {
   const { correo, contraseña } = await req.json();
+
+  if (!SECRET_KEY || SECRET_KEY.trim() === '') {
+    console.error('La clave privada JWT no está configurada correctamente.');
+    return NextResponse.json({ error: 'Error de configuración del servidor' }, { status: 500 });
+  }
 
   try {
     const db = await createConnection();
@@ -18,15 +25,24 @@ export async function POST(req) {
     const user = rows[0];
     const isPasswordValid = await bcrypt.compare(contraseña, user.contrasenia);
 
-
     if (!isPasswordValid) {
-        return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
-      }
+      return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
+    }
 
-    // Here you can generate a token or set a session
-    return NextResponse.json({ message: 'Inicio de sesión exitoso' });
+    const token = jwt.sign(
+      {
+        id: user.id,
+        correo: user.correo,
+        nombre: user.nombre,
+        telefono: user.telefono
+      },
+      process.env.JWT_PRIVATE_KEY,  // Clave privada para firmar el token
+      { expiresIn: '1h' }  // El token expirará en 1 hora
+    );
+
+    return NextResponse.json({ message: 'Inicio de sesión exitoso', token });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Error en el login API:', error);
+    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }

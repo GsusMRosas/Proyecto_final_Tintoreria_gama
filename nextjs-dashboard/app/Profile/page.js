@@ -1,7 +1,5 @@
-import Profile from '../components/profile.js';
+import Profile from '../components/profile';
 
-export default function Page(){
-    return(
-        <Profile/>
-    );
+export default function ProfilePage() {
+  return <Profile />;
 }
