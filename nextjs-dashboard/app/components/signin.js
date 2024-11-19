@@ -44,7 +44,7 @@ function Signin() {
   return (
     <div>
       <AppnameLi />
-      <div className='bg-blue-50 flex items-center justify-center m-0'>
+      <div className="bg-blue-50 flex items-center justify-center m-0 min-h-screen">
         <div className='text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl'>
           <h1 className='pb-10 font-bungee text-3xl text-backgroundBlue'>Crear cuenta</h1>
           <form className='flex flex-col space-y-4 items-center' onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ function Signin() {
             {error && <p className="text-red-500">{error}</p>}
             {success && <p className="text-green-500">{success}</p>}
             <button type="submit" className="w-40 bg-white">Registrar</button>
-            <Link href="/Login">¿Ya tienes una cuenta? Inicia sesión</Link>
+            <Link href="/LogIn">¿Ya tienes una cuenta? Inicia sesión</Link>
           </form>
         </div>
       </div>
