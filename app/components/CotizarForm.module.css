@@ -1,0 +1,28 @@
+.container {
+    width: 60%;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.form {
+    background-color: #F6FDFF;
+    padding: 20px;
+    border-radius: 8px;
+}
+  
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 80px; /* Espacio entre los campos */
+}
+
+.textfield {
+    background-color: white;
+}
+  
+@media (max-width: 600px) {
+    .grid {
+      grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+}
+  

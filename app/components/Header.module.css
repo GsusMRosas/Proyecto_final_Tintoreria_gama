@@ -1,0 +1,81 @@
+.header {
+  background-color: #F6FDFF; /* Color de fondo claro */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para separación */
+}
+
+.title {
+  color: #000; /* Título en negro */
+  font-size: 28px; /* Tamaño del texto para destacar el título */
+  font-weight: bold; /* Peso para resaltar */
+  margin: 0;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.nav {
+  gap: 30px; /* Espaciado entre enlaces */
+  display: flex;
+}
+
+.link {
+  color: #000; /* Texto de los enlaces en negro */
+  text-decoration: none; /* Sin subrayado */
+  font-size: 20px; /* Tamaño adecuado del texto */
+  font-weight: 500; /* Peso medio para mayor legibilidad */
+  transition: color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+
+.link:hover {
+  color: #53A7BF; /* Color azul al pasar el mouse */
+  transform: scale(1.05); /* Efecto de zoom */
+}
+
+.highlightSection {
+  text-align: center;
+  padding: 40px 20px; /* Espaciado interno */
+  background-color: #223A5C; /* Fondo azul oscuro */
+  color: white; /* Texto en blanco */
+}
+
+.highlightSection h1 {
+  font-size: 40px; /* Tamaño del texto */
+  font-weight: bold; /* Resaltar el título */
+  margin-bottom: 20px; /* Espaciado entre título y botones */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaciado entre botones */
+}
+
+.button {
+  background-color: #53A7BF; /* Botón azul */
+  color: white; /* Texto en blanco */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px; /* Tamaño del botón */
+  font-size: 16px; /* Tamaño del texto */
+  font-weight: bold; /* Resaltar texto */
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+
+.button:hover {
+  background-color: #417F99; /* Azul más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Efecto de zoom */
+}
+
+.button.secondary {
+  background-color: #939393; /* Botón gris */
+}
+
+.button.secondary:hover {
+  background-color: #6B6B6B; /* Gris más oscuro al pasar el mouse */
+}
