@@ -26,6 +26,7 @@ export default function Consideraciones() {
       </div>
 
       {/* Sección para ropa interior */}
+      {/* comentario */}
       <div className={styles.card}>
         <h2 className={styles.subtitle}>PARA ROPA INTERIOR:</h2>
         <br />
