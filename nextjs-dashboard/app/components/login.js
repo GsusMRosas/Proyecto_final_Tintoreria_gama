@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import AppnameLi from "../components/appnameLi.js";
+import Navbar from './navbar.js';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
@@ -46,9 +47,13 @@ function Login() {
 
   return (
     <div>
+      <div className="bg-backgroundBlue"><Navbar /></div>
+      
       <AppnameLi />
-      <div className="bg-blue-50 flex items-center justify-center m-0 min-h-screen">
-        <div className="text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl">
+      <hr className='bg-backgroundWhite h-1 border-0'/>
+      <hr className='bg-aquaLine h-1 border-0'/>
+      <div className="bg-backgroundWhite flex items-center justify-center m-0 min-h-screen">
+        <div className="text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <h1 className="pb-10 font-bungee text-3xl text-backgroundBlue">Inicio de sesión</h1>
           <form className="flex flex-col space-y-4 items-center" onSubmit={handleSubmit}>
             <label className='font-alegreyaMedium'>Correo</label>
@@ -66,9 +71,9 @@ function Login() {
               onChange={(e) => setContraseña(e.target.value)}
             />
             {error && <p className="text-red-500">{error}</p>}
-            <button type="submit" className="text-white bg-backgroundBlue hover:bg-blue-800 focus:ring-4
+            <button type="submit" className="text-white bg-backgroundBlue hover:bg-darkaquaLine focus:ring-4
                 focus:ring-blue-300 font-alegreyaMedium rounded-lg text-base px-5 py-2.5 me-2 mb-2
-                dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Iniciar sesión</button>
+                dark:bg-aquaLine dark:bg-aquaLine focus:outline-none dark:focus:ring-cyan-800">Iniciar sesión</button>
             <Link href="/SignIn" className='font-alegreyaMedium'>¿No tienes una cuenta? Regístrate</Link>
           </form>
         </div>

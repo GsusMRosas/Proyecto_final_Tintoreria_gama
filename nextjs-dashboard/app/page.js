@@ -32,6 +32,7 @@ export default function Home() {
     <Appname/>
     <Servicios />
     <Ubicacion/>
+    
     <Pie/>
   
     </div>
