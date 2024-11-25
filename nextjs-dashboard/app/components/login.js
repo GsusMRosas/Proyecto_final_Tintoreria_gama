@@ -47,8 +47,6 @@ function Login() {
 
   return (
     <div>
-      <div className="bg-backgroundBlue"><Navbar /></div>
-      
       <AppnameLi />
       <hr className='bg-backgroundWhite h-1 border-0'/>
       <hr className='bg-aquaLine h-1 border-0'/>
