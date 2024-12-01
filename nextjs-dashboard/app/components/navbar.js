@@ -2,19 +2,16 @@
 import React from 'react';
 import Link from "next/link";
 
-function Navbar() {
+export default function Navbar() {
     return(
-        <div className='w-full text-white container py-5
-          font-alegreyaMedium flex-1 flex space-x-4 justify-end text-xl '>
-            
+        <div className=" bg-backgroundBlue " >
+            <div className='w-full text-white container py-5
+          font-alegreyaMedium flex-1 flex space-x-4 justify-end text-xl'>
                 <Link  href="/" className='hover:text-aquaLine'>Inicio</Link>
-                <Link href="/servicios" className='hover:text-aquaLine' >Servicios</Link>
+                <Link href="/cotizar" className='hover:text-aquaLine' >Cotizar</Link>
+                <Link href="/consideraciones">Consideraciones</Link>
                 <Link href="/LogIn" className='hover:text-aquaLine'>Cuenta</Link>
-                <h1>  </h1>
-
-
+            </div>
         </div>
     )
-}
-
-export default Navbar
+};

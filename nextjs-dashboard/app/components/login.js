@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import AppnameLi from "../components/appnameLi.js";
-import Navbar from './navbar.js';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
-function Login() {
+export default function Login() {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
@@ -47,12 +45,11 @@ function Login() {
 
   return (
     <div>
-      <AppnameLi />
       <hr className='bg-backgroundWhite h-1 border-0'/>
       <hr className='bg-aquaLine h-1 border-0'/>
       <div className="bg-backgroundWhite flex items-center justify-center m-0 min-h-screen">
         <div className="text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-          <h1 className="pb-10 font-bungee text-3xl text-backgroundBlue">Inicio de sesión</h1>
+          <h1 className='font-bungee text-backgroundBlue text-4xl flex justify-center py-9'>Inicio de sesión</h1>
           <form className="flex flex-col space-y-4 items-center" onSubmit={handleSubmit}>
             <label className='font-alegreyaMedium'>Correo</label>
             <input
@@ -79,5 +76,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;

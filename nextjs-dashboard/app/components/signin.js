@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import AppnameLi from "../components/appnameLi.js";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
-function Signin() {
+export default function Signin() {
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
@@ -43,12 +42,11 @@ function Signin() {
 
   return (
     <div>
-      <AppnameLi />
       <hr className='bg-backgroundWhite h-1 border-0'/>
       <hr className='bg-aquaLine h-1 border-0'/>
       <div className="bg-blue-50 flex items-center justify-center m-0 min-h-screen">
         <div className='text-center bg-gray-200 mx-60 my-20 px-60 py-20 rounded-xl'>
-          <h1 className='pb-10 font-bungee text-3xl text-backgroundBlue'>Crear cuenta</h1>
+          <h1 className='font-bungee text-backgroundBlue text-4xl flex justify-center py-9'>Crear cuenta</h1>
           <form className='flex flex-col space-y-4 items-center' onSubmit={handleSubmit}>
             <label className='font-alegreyaMedium'>Nombre</label>
             <input
@@ -80,9 +78,9 @@ function Signin() {
             />
             {error && <p className="text-red-500">{error}</p>}
             {success && <p className="text-green-500">{success}</p>}
-            <button type="submit" className=" text-white bg-backgroundBlue hover:bg-blue-800 focus:ring-4
+            <button type="submit" className="text-white bg-backgroundBlue hover:bg-darkaquaLine focus:ring-4
                 focus:ring-blue-300 font-alegreyaMedium rounded-lg text-base px-5 py-2.5 me-2 mb-2
-                dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Registrar</button>
+                dark:bg-aquaLine dark:bg-aquaLine focus:outline-none dark:focus:ring-cyan-800">Registrar</button>
             <Link href="/LogIn" className='font-alegreyaMedium'>¿Ya tienes una cuenta? Inicia sesión</Link>
           </form>
         </div>
@@ -90,5 +88,3 @@ function Signin() {
     </div>
   );
 }
-
-export default Signin;

@@ -27,17 +27,18 @@ function Servicios(){
 
                 <div className='flex flex-col text-center max-w-xs p-4'>
                     <img className="h-auto " src="/imagenes/PlanchadoC.png" alt="Lavandedria"></img>
-                    <figcaption className='font-bungee text-2xl text-backgroundBlue'> PLANCHADO</figcaption>
+                    <figcaption className='font-bungee text-2xl text-backgroundBlue'>PLANCHADO</figcaption>
                     <figcaption className='font-alegreyaMedium text-gray-700'>Ten tu ropa siempre lista para lucir perfecta. Nuestro servicio de planchado profesional deja tus prendas suaves, sin arrugas y con un acabado impecable, ideal para cualquier ocasión. </figcaption>
 
                 </div>
             </div>
 
             <div className='bg-backgroundLBlue flex justify-center py-9'>
-                <button type="button" className=" text-white bg-backgroundBlue hover:bg-darkaquaLine focus:ring-4
-                focus:ring-blue-300 font-alegreyaMedium rounded-lg text-base px-5 py-2.5 me-2 mb-2
-                dark:bg-aquaLine dark:bg-aquaLine focus:outline-none dark:focus:ring-cyan-800" >Cotizar Servicios</button>
-
+                <a href='/cotizar'>
+                    <button type="button" className=" text-white bg-backgroundBlue hover:bg-darkaquaLine focus:ring-4
+                    focus:ring-blue-300 font-alegreyaMedium rounded-lg text-base px-5 py-2.5 me-2 mb-2
+                    dark:bg-aquaLine dark:bg-aquaLine focus:outline-none dark:focus:ring-cyan-800" >Cotizar Servicios</button>
+                </a>
             </div>
 
 

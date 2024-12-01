@@ -2,13 +2,10 @@
 
 import Appname from "./components/appname";
 import Navbar from "./components/navbar";
+import Pie from "./components/pie";
 import Servicios from "./components/servicios";
 import Ubicacion from "./components/ubicacion";
-import Map from "./components/map";
-import Pie from "./components/pie";
 import { useEffect } from "react";
-
- // <Map address="1600 Amphitheatre Parkway, Mountain View, CA" />
 
 export default function Home() {
   
@@ -32,7 +29,6 @@ export default function Home() {
     <Appname/>
     <Servicios />
     <Ubicacion/>
-    
     <Pie/>
   
     </div>
