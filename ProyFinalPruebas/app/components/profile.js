@@ -15,7 +15,6 @@ function Profile() {
   const [error, setError] = useState('');
   const router = useRouter();
   
-
   useEffect(() => {
     const token = localStorage.getItem('token');
   
@@ -26,31 +25,21 @@ function Profile() {
       return;
     }
   
-    console.log('Token encontrado:', token);
-    console.log('Clave secreta:', SECRET_KEY);
-  
     try {
-      if (typeof SECRET_KEY !== 'string' || SECRET_KEY.trim() === '') {
-        throw new Error('SECRET_KEY is not a valid string');
-      }
-  
       const decoded = jwt.decode(token, { complete: true });
-      console.log('Token decodificado:', decoded);
       setUser(decoded.payload);
       
       fetchCurrentOrders(decoded.payload.id);
       fetchOrderHistory(decoded.payload.id);  
       
-      const interval=setInterval(()=>{
-        fetchCurrentOrders(decoded.id);
-        fetchOrderHistory(decoded.id);
-      },3000000)// <-- Añade esta línea
+      const interval = setInterval(() => {
+        fetchCurrentOrders(decoded.payload.id);
+        fetchOrderHistory(decoded.payload.id);
+      }, 300000); 
 
-      return()=>clearInterval(interval)
-
+      return () => clearInterval(interval);
     } catch (error) {
       console.error('Error al decodificar el token:', error.message);
-      console.error('Error stack:', error.stack);
       setError('Sesión expirada o inválida. Por favor, inicia sesión de nuevo.');
       localStorage.removeItem('token');
       router.push('/LogIn');
@@ -60,30 +49,26 @@ function Profile() {
   const fetchCurrentOrders = async (usuarioId) => { 
     try {
       const response = await fetch(`/api/orders?usuarioId=${usuarioId}&type=current`); 
-      if (!response.ok) { 
-        throw new Error(`Error fetching current orders: ${response.statusText}`); 
-      } 
+      if (!response.ok) throw new Error(`Error fetching current orders: ${response.statusText}`); 
       const data = await response.json(); 
       setCurrentOrders(data); 
     } catch (error) { 
       console.error('Error fetching current orders:', error); 
-      setError('Error fetching current orders: ' + error.message); } 
-    };
+      setError('Error fetching current orders: ' + error.message); 
+    } 
+  };
   
-    const fetchOrderHistory = async (usuarioId) => { 
-      try { 
-        const response = await fetch(`/api/orders?usuarioId=${usuarioId}&type=history`); 
-        if (!response.ok) { 
-          throw new Error(`Error fetching order history: ${response.statusText}`); 
-        } 
-        const data = await response.json(); 
-        setOrderHistory(data); 
-      } catch (error) { 
-        console.error('Error fetching order history:', error); 
-        setError('Error fetching order history: ' + error.message); 
-      }
-    };
-  
+  const fetchOrderHistory = async (usuarioId) => { 
+    try { 
+      const response = await fetch(`/api/orders?usuarioId=${usuarioId}&type=history`); 
+      if (!response.ok) throw new Error(`Error fetching order history: ${response.statusText}`); 
+      const data = await response.json(); 
+      setOrderHistory(data); 
+    } catch (error) { 
+      console.error('Error fetching order history:', error); 
+      setError('Error fetching order history: ' + error.message); 
+    }
+  };
   
   const handleLogout = () => { 
     localStorage.removeItem('token'); 
@@ -97,8 +82,7 @@ function Profile() {
     <div>
       <div className="flex bg-backgroundBlue">
         <AppnameLi />
-        <div className="w-full text-white container py-5
-          font-alegreyaMedium flex-1 flex space-x-4 justify-end text-xl pr-10">
+        <div className="w-full text-white container py-5 font-alegreyaMedium flex-1 flex space-x-4 justify-end text-xl pr-10">
           <Link href="/cotizar" className='hover:text-aquaLine'>Cotizar</Link>
           <Link href="/" className='hover:text-aquaLine' onClick={handleLogout}>Cerrar sesión</Link>
         </div>
@@ -121,63 +105,67 @@ function Profile() {
         <div className="bg-gray-200 px-20 py-20 my-20 mx-10 rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div>
             <h1 className="pb-10 font-bungee text-xl text-backgroundBlue">Pedido actual</h1>
-            <div className='bg-white items-center justify-center mb-5'>
-            {currentOrders.length > 0 ? (
-              <table className="min-w-full bg-backgoundLBlue border-collapse shadow-lg">
-                <thead>
-                  <tr>
-                    <th className="py-2 border-b">Servicio</th>
-                    <th className="py-2 border-b">Fecha Entrega</th>
-                    <th className="py-2 border-b">Concepto</th>
-                    <th className="py-2 border-b">Precio Estimado</th>
-                    <th className="py-2 border-b">Fecha Estimada</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentOrders.map(order => (
-                    <tr key={order.id}>
-                      <td className="py-2 border-b">{order.servicio}</td>
-                      <td className="py-2 border-b">{order.fecha_hora}</td>
-                      <td className="py-2 border-b">{order.concepto}</td>
-                      <td className="py-2 border-b">{order.precio_estimado}</td>
-                      <td className="py-2 border-b">{order.fecha_estimada}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>No tienes pedidos actuales.</p>
-            )}
-            </div>
-          </div>
-          <div>
-            <h1 className="pb-10 font-bungee text-xl text-backgroundBlue mt-10">Historial de pedidos</h1>
-            <div className='bg-white items-center justify-center mb-5'>
-              {orderHistory.length > 0 ? (
-                <table className="min-w-full bg-white border-collapse shadow-lg align-center">
+            <div className='bg-white items-center justify-center mb-5 rounded-lg shadow-lg overflow-hidden'>
+              {currentOrders.length > 0 ? (
+                <table className="min-w-full border-collapse">
                   <thead>
-                    <tr>
-                      <th className="py-2 border-b">Servicio</th>
-                      <th className="py-2 border-b">Fecha Entrega</th>
-                      <th className="py-2 border-b">Concepto</th>
-                      <th className="py-2 border-b">Precio Estimado</th>
-                      <th className="py-2 border-b">Fecha Estimada</th>
+                    <tr className="bg-backgroundBlue text-white text-left">
+                      <th className="py-4 px-6 border-b">Servicio</th>
+                      <th className="py-4 px-6 border-b">Fecha Entrega</th>
+                      <th className="py-4 px-6 border-b">Concepto</th>
+                      <th className="py-4 px-6 border-b">Precio Estimado</th>
+                      <th className="py-4 px-6 border-b">Fecha Estimada</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {orderHistory.map(order => (
-                      <tr key={order.id}>
-                        <td className="py-2 border-b">{order.servicio}</td>
-                        <td className="py-2 border-b">{order.fecha_hora}</td>
-                        <td className="py-2 border-b">{order.concepto}</td>
-                        <td className="py-2 border-b">{order.precio_estimado}</td>
-                        <td className="py-2 border-b">{order.fecha_estimada}</td>
+                    {currentOrders.map((order, index) => (
+                      <tr
+                        key={order.id}
+                        className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
+                        <td className="py-4 px-6 border-b">{order.servicio}</td>
+                        <td className="py-4 px-6 border-b">{order.fecha_hora}</td>
+                        <td className="py-4 px-6 border-b">{order.concepto}</td>
+                        <td className="py-4 px-6 border-b">{order.precio_estimado}</td>
+                        <td className="py-4 px-6 border-b">{order.fecha_estimada}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               ) : (
-                <p>No tienes historial de pedidos.</p>
+                <p className="text-center text-gray-500">No tienes pedidos actuales.</p>
+              )}
+            </div>
+          </div>
+          <div>
+            <h1 className="pb-10 font-bungee text-xl text-backgroundBlue mt-10">Historial de pedidos</h1>
+            <div className='bg-white items-center justify-center mb-5 rounded-lg shadow-lg overflow-hidden'>
+              {orderHistory.length > 0 ? (
+                <table className="min-w-full border-collapse">
+                  <thead>
+                    <tr className="bg-backgroundBlue text-white text-left">
+                      <th className="py-4 px-6 border-b">Servicio</th>
+                      <th className="py-4 px-6 border-b">Fecha Entrega</th>
+                      <th className="py-4 px-6 border-b">Concepto</th>
+                      <th className="py-4 px-6 border-b">Precio Estimado</th>
+                      <th className="py-4 px-6 border-b">Fecha Estimada</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orderHistory.map((order, index) => (
+                      <tr
+                        key={order.id}
+                        className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
+                        <td className="py-4 px-6 border-b">{order.servicio}</td>
+                        <td className="py-4 px-6 border-b">{order.fecha_hora}</td>
+                        <td className="py-4 px-6 border-b">{order.concepto}</td>
+                        <td className="py-4 px-6 border-b">{order.precio_estimado}</td>
+                        <td className="py-4 px-6 border-b">{order.fecha_estimada}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p className="text-center text-gray-500">No tienes historial de pedidos.</p>
               )}
             </div>
           </div>

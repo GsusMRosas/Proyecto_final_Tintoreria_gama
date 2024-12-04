@@ -1,6 +1,11 @@
-import { createConnection } from "@/lib/db";
+import { MongoClient } from 'mongodb';
 import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
+import { use } from 'react';
+
+const uri = "mongodb+srv://gamadbadmin:gama2024@gamadb.cnrihgh.mongodb.net/?retryWrites=true&w=majority&appName=GamaDB";
+const dbName = 'Gama';
+
 
 export async function POST(request) {
   try {
@@ -34,10 +39,16 @@ export async function POST(request) {
     }
 
     let usuarioId;
+    let nombre;
+    let correo;
+    let telefono;
     try {
       const decoded = jwt.verify(token, SECRET_KEY);
       console.log('Token decodificado:', decoded);
-      usuarioId = decoded.id; // Ajusta esto si el ID del usuario está bajo la clave `id`
+      usuarioId = decoded.id; // Ajusta esto si el ID del usuario está bajo la clave id
+      nombre = decoded.nombre;
+      correo = decoded.correo;
+      telefono = decoded.telefono;
     } catch (error) {
       console.error('Error al decodificar el token:', error);
       return new Response(
@@ -47,40 +58,43 @@ export async function POST(request) {
     }
 
     // Verificar y establecer valores a null si están indefinidos
-    const values = [
-      usuarioId ?? null,
-      servicio ?? null,
-      fecha_hora ?? null,
-      concepto ?? null,
-      cantidad_unidad ?? null,
-      cantidad_docena ?? null,
-      cantidad_kilos ?? null,
-      observaciones ?? null,
-      precio_estimado ?? null,
-      fecha_estimada ?? null,
-      0,
-    ];
+    const cotizacion = {
+      usuario_id: usuarioId ?? null,
+      nombre: nombre ?? null,
+      correo: correo ?? null,
+      telefono: telefono ?? null,
+      servicio: servicio ?? null,
+      fecha_hora: fecha_hora ?? null,
+      concepto: concepto ?? null,
+      cantidad_unidad: cantidad_unidad ?? null,
+      cantidad_docena: cantidad_docena ?? null,
+      cantidad_kilos: cantidad_kilos ?? null,
+      observaciones: observaciones ?? null,
+      precio_estimado: precio_estimado ?? null,
+      fecha_estimada: fecha_estimada ?? null,
+      terminado: false, // Por defecto
+    };
 
-    // Crear conexión a la base de datos
-    const db = await createConnection();
+    // Crear conexión a MongoDB
+    const client = new MongoClient(uri);
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection('Ordenes');
 
-    // Inserción en la base de datos
-    const query = `
-      INSERT INTO cotizaciones 
-      (usuario_id, servicio, fecha_hora, concepto, cantidad_unidad, cantidad_docena, cantidad_kilos, observaciones, precio_estimado, fecha_estimada, terminado)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
+    // Insertar en la base de datos
+    const result = await collection.insertOne(cotizacion);
 
-    const [result] = await db.execute(query, values);
+    // Cerrar la conexión
+    await client.close();
 
     return new Response(
-      JSON.stringify({ message: "Pedido creado con éxito", orderId: result.insertId }),
+      JSON.stringify({ message: 'Pedido creado con éxito', orderId: result.insertedId }),
       { status: 201, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error al crear el pedido:", error);
+    console.error('Error al crear el pedido:', error);
     return new Response(
-      JSON.stringify({ error: "Error al crear el pedido" }),
+      JSON.stringify({ error: 'Error al crear el pedido' }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
